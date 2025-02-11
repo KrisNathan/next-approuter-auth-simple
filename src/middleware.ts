@@ -7,7 +7,6 @@ export async function middleware(request: NextRequest) {
   console.log("huh", request.url)
   const credJSON = request.cookies.get('cred');
   if (!credJSON) {
-    console.log("fuck1")
     return NextResponse.redirect(new URL('/login', request.url));
   }
   const cred = JSON.parse(credJSON.value);
@@ -17,8 +16,6 @@ export async function middleware(request: NextRequest) {
   });
   const { data: parsedCred, success } = credSchema.safeParse(cred)
   if (!success) {
-    console.log("fuck2")
-
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
@@ -31,8 +28,6 @@ export async function middleware(request: NextRequest) {
       body: JSON.stringify(parsedCred)
     });
     if (!result.ok) {
-      console.log("fuck3")
-
       return NextResponse.redirect(new URL('/login', request.url));
     }
 
